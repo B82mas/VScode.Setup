@@ -24,9 +24,13 @@ Forslag til VS Code-oppsett for **Thomas (B82MAS)** — VS Code som hovedprogram
 
 ## Oppsettskript
 
-`scripts/setup.sh` (Linux/macOS) og `scripts/setup.ps1` (Windows) installerer alle anbefalte extensions fra `.vscode/extensions.json` via VS Code CLI, og kopierer `.vscode/settings.json` inn i din globale VS Code User-profil (med automatisk backup av evt. eksisterende fil).
+`scripts/setup.sh` (Linux/macOS) og `scripts/setup.ps1` (Windows) gjør alt som skal til for at VS Code skal virke:
 
-**Forutsetning:** `code`-kommandoen må være tilgjengelig i PATH (i VS Code: `Ctrl+Shift+P` → *Shell Command: Install 'code' command in PATH*).
+1. **Installerer selve VS Code** hvis `code`-kommandoen ikke finnes (apt/snap/dnf på Linux, Homebrew på macOS, winget/choco på Windows).
+2. Installerer alle anbefalte extensions fra `.vscode/extensions.json` via VS Code CLI.
+3. Kopierer `.vscode/settings.json` inn i din globale VS Code User-profil (med automatisk backup av evt. eksisterende fil).
+
+**Merk:** Installasjon av selve VS Code krever sudo/admin-rettigheter (apt/dnf/snap på Linux, winget/choco på Windows). Skriptet spør om passord ved behov.
 
 ### Linux / macOS
 ```bash

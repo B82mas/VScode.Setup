@@ -46,13 +46,61 @@ run() {
   fi
 }
 
-# --- 1. Sjekk at VS Code CLI finnes ---
+# --- 1. Installer VS Code selv, hvis det ikke allerede finnes ---
+install_vscode() {
+  log "Fant ikke '$CODE_CMD' — installerer VS Code..."
+  case "$(uname -s)" in
+    Linux)
+      if command -v apt >/dev/null 2>&1; then
+        log "Installerer VS Code via apt (Microsoft sitt repo)"
+        run sudo apt-get update -y
+        run sudo apt-get install -y wget gpg apt-transport-https
+        TMP_KEY="$(mktemp)"
+        run bash -c "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > '$TMP_KEY'"
+        run sudo install -D -o root -g root -m 644 "$TMP_KEY" /usr/share/keyrings/packages.microsoft.gpg
+        run bash -c "echo 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main' | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null"
+        run sudo apt-get update -y
+        run sudo apt-get install -y code
+      elif command -v snap >/dev/null 2>&1; then
+        log "Installerer VS Code via snap"
+        run sudo snap install code --classic
+      elif command -v dnf >/dev/null 2>&1; then
+        log "Installerer VS Code via dnf"
+        run sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+        run bash -c "printf '[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\n' | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null"
+        run sudo dnf check-update -y || true
+        run sudo dnf install -y code
+      else
+        echo "Fant verken apt, snap eller dnf. Installer VS Code manuelt: https://code.visualstudio.com/download" >&2
+        exit 1
+      fi
+      ;;
+    Darwin)
+      if command -v brew >/dev/null 2>&1; then
+        log "Installerer VS Code via Homebrew"
+        run brew install --cask visual-studio-code
+      else
+        echo "Fant ikke Homebrew. Installer VS Code manuelt: https://code.visualstudio.com/download" >&2
+        exit 1
+      fi
+      ;;
+    *)
+      echo "Ukjent OS. Installer VS Code manuelt: https://code.visualstudio.com/download" >&2
+      exit 1
+      ;;
+  esac
+}
+
 if ! command -v "$CODE_CMD" >/dev/null 2>&1; then
-  echo "Fant ikke '$CODE_CMD' i PATH." >&2
-  echo "Åpne VS Code, kjør 'Shell Command: Install code command in PATH' fra Command Palette, og prøv igjen." >&2
+  install_vscode
+fi
+
+if ! $DRY_RUN && ! command -v "$CODE_CMD" >/dev/null 2>&1; then
+  echo "Installasjonen fullførte, men fant fortsatt ikke '$CODE_CMD' i PATH." >&2
+  echo "Åpne en ny terminal, eller åpne VS Code og kjør 'Shell Command: Install code command in PATH' fra Command Palette." >&2
   exit 1
 fi
-log "Bruker VS Code CLI: $(command -v "$CODE_CMD")"
+log "Bruker VS Code CLI: $(command -v "$CODE_CMD" || echo "$CODE_CMD (dry-run, ikke installert enda)")"
 
 # --- 2. Finn riktig User-mappe for settings/keybindings ---
 case "$(uname -s)" in

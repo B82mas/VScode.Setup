@@ -39,13 +39,45 @@ function Invoke-Step {
     }
 }
 
-# --- 1. Sjekk at VS Code CLI finnes ---
+# --- 1. Installer VS Code selv, hvis det ikke allerede finnes ---
 $codePath = Get-Command $CodeCmd -ErrorAction SilentlyContinue
 if (-not $codePath) {
-    Write-Error "Fant ikke '$CodeCmd' i PATH. Åpne VS Code, kjør 'Shell Command: Install ''code'' command in PATH' fra Command Palette, og prøv igjen."
-    exit 1
+    Write-Log "Fant ikke '$CodeCmd' — installerer VS Code..."
+
+    $winget = Get-Command winget -ErrorAction SilentlyContinue
+    $choco  = Get-Command choco -ErrorAction SilentlyContinue
+
+    if ($winget) {
+        Write-Log "Installerer VS Code via winget"
+        Invoke-Step -Description "winget install -e --id Microsoft.VisualStudioCode" -Action {
+            winget install -e --id Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
+        }
+    } elseif ($choco) {
+        Write-Log "Installerer VS Code via Chocolatey"
+        Invoke-Step -Description "choco install vscode -y" -Action {
+            choco install vscode -y
+        }
+    } else {
+        Write-Error "Fant verken winget eller choco. Installer VS Code manuelt: https://code.visualstudio.com/download"
+        exit 1
+    }
+
+    if (-not $DryRun) {
+        # Oppdater PATH i denne prosessen slik at 'code' kan bli funnet rett etter installasjon
+        $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+        $codePath = Get-Command $CodeCmd -ErrorAction SilentlyContinue
+        if (-not $codePath) {
+            Write-Error "Installasjonen fullførte, men fant fortsatt ikke '$CodeCmd' i PATH. Åpne et nytt PowerShell-vindu og prøv igjen."
+            exit 1
+        }
+    }
 }
-Write-Log "Bruker VS Code CLI: $($codePath.Source)"
+
+if ($codePath) {
+    Write-Log "Bruker VS Code CLI: $($codePath.Source)"
+} else {
+    Write-Log "Bruker VS Code CLI: $CodeCmd (dry-run, ikke installert enda)"
+}
 
 # --- 2. Finn User-mappe for settings ---
 $UserDir = Join-Path $env:APPDATA "Code\User"
