@@ -60,7 +60,7 @@ case "$(uname -s)" in
     USER_DIR="$HOME/Library/Application Support/Code/User"
     ;;
   Linux)
-    USER_DIR="$HOME/.config/Code/User"
+    USER_DIR="$HOME/.vscode"
     ;;
   *)
     echo "Ukjent OS for automatisk User-mappe. Kopier settings/keybindings manuelt." >&2
