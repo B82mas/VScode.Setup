@@ -1,0 +1,97 @@
+{
+  // ===== Generelt =====
+  "editor.fontSize": 14,
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Consolas, monospace",
+  "editor.fontLigatures": true,
+  "editor.cursorBlinking": "smooth",
+  "editor.formatOnSave": true,
+  "editor.rulers": [80, 120],
+  "editor.minimap.enabled": false,
+  "editor.wordWrap": "on",
+  "editor.linkedEditing": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.stickyScroll.enabled": true,
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": true,
+  "workbench.startupEditor": "none",
+  "workbench.tree.indent": 16,
+  "workbench.editor.enablePreview": false,
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.venv": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.git": true
+  },
+
+  // ===== Git =====
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+
+  // ===== Markdown / dokumentasjon / wiki =====
+  "markdown.preview.breaks": true,
+  "markdown.extension.toc.updateOnSave": true,
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": { "comments": true, "strings": true, "other": true },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.language": "en,nb",
+  "cSpell.enabledLanguageIds": ["markdown", "plaintext", "mdx"],
+
+  // ===== Python (sikkerhet, automasjon, IoT-scripting) =====
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "python.analysis.typeCheckingMode": "basic",
+
+  // ===== PowerShell / Windows- og infra-drift =====
+  "[powershell]": {
+    "editor.defaultFormatter": "ms-vscode.powershell"
+  },
+  "powershell.codeFormatting.preset": "OTBS",
+
+  // ===== YAML / Terraform / Kubernetes / IaC =====
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.tabSize": 2
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true
+  },
+  "yaml.schemas": {
+    "kubernetes": "*.k8s.yaml"
+  },
+
+  // ===== Web / fullstack (TS/React) =====
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+
+  // ===== C/C++ (ESP32 / embedded) =====
+  "[cpp]": { "editor.defaultFormatter": "ms-vscode.cpptools" },
+  "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 2 }",
+
+  // ===== Todo/oppgavesporing i dokumentasjon =====
+  "todo-tree.general.tags": ["TODO", "FIXME", "NOTE", "SECURITY", "IDEA"],
+
+  // ===== Terminal =====
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.fontSize": 13
+}

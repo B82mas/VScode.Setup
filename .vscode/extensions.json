@@ -1,0 +1,68 @@
+{
+  "recommendations": [
+    // --- Kjerne / produktivitet ---
+    "eamodio.gitlens",
+    "streetsidesoftware.code-spell-checker",
+    "gruntfuggly.todo-tree",
+    "usernamehw.errorlens",
+    "wayou.vscode-todo-highlight",
+    "alefragnani.project-manager",
+
+    // --- Dokumentasjon / wiki / notater ---
+    "yzhang.markdown-all-in-one",
+    "bierner.markdown-mermaid",
+    "davidanson.vscode-markdownlint",
+    "bierner.github-markdown-preview",
+    "shd101wyy.markdown-preview-enhanced",
+    "foam.foam-vscode",
+
+    // --- Web / fullstack (React/Next/TS) ---
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "prisma.prisma",
+
+    // --- Python (sikkerhet, automasjon, dataanalyse) ---
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.black-formatter",
+
+    // --- PowerShell / Windows- og Linux-drift ---
+    "ms-vscode.powershell",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-wsl",
+
+    // --- Cloud / DevOps / IaC ---
+    "hashicorp.terraform",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-azuretools.vscode-docker",
+    "ms-azuretools.vscode-bicep",
+    "redhat.vscode-yaml",
+    "github.vscode-github-actions",
+
+    // --- Sikkerhet / OT-ICS ---
+    "tenable.tenable-vscode",
+    "ms-vscode.hexeditor",
+
+    // --- Embedded / ESP32 / IoT ---
+    "platformio.platformio-ide",
+    "ms-vscode.cpptools",
+    "ms-vscode.cpptools-extension-pack",
+
+    // --- Diagram / arkitektur (C4, Mermaid, ADR) ---
+    "hediet.vscode-drawio",
+    "bierner.markdown-mermaid",
+
+    // --- Notion / eksterne verktøy ---
+    "vscode-icons-team.vscode-icons",
+
+    // --- Tema og ikoner ---
+    "pkief.material-icon-theme",
+    "github.github-vscode-theme",
+    "zhuangtongfa.material-theme",
+
+    // --- Remote / Copilot ---
+    "github.copilot",
+    "github.copilot-chat"
+  ]
+}
