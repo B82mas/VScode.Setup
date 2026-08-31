@@ -18,6 +18,30 @@ Forslag til VS Code-oppsett for **Thomas (B82MAS)** — VS Code som hovedprogram
 ## Kjapp start
 
 1. Åpne hovedmappen din (se `docs/mappestruktur.md`) som **multi-root workspace** i VS Code.
-2. Installer extensions fra `.vscode/extensions.json` (VS Code spør automatisk: "Install Recommended Extensions").
+2. Kjør oppsettskriptet for din plattform (se under) — installerer extensions og kopierer settings automatisk.
 3. Sett opp profilene i `docs/profiler.md` (`Ctrl+Shift+P` → *Profiles: Create Profile*).
 4. Velg tema fra `docs/themes-og-ikoner.md`.
+
+## Oppsettskript
+
+`scripts/setup.sh` (Linux/macOS) og `scripts/setup.ps1` (Windows) installerer alle anbefalte extensions fra `.vscode/extensions.json` via VS Code CLI, og kopierer `.vscode/settings.json` inn i din globale VS Code User-profil (med automatisk backup av evt. eksisterende fil).
+
+**Forutsetning:** `code`-kommandoen må være tilgjengelig i PATH (i VS Code: `Ctrl+Shift+P` → *Shell Command: Install 'code' command in PATH*).
+
+### Linux / macOS
+```bash
+git clone https://github.com/B82mas/VScode.Setup.git
+cd VScode.Setup
+./scripts/setup.sh            # kjør oppsettet
+./scripts/setup.sh --dry-run  # se hva som ville blitt gjort, uten å endre noe
+```
+
+### Windows (PowerShell)
+```powershell
+git clone https://github.com/B82mas/VScode.Setup.git
+cd VScode.Setup
+.\scripts\setup.ps1            # kjør oppsettet
+.\scripts\setup.ps1 -DryRun    # se hva som ville blitt gjort, uten å endre noe
+```
+
+Begge skript støtter `code-insiders` via `--code-cmd code-insiders` (bash) / `-CodeCmd code-insiders` (PowerShell).
